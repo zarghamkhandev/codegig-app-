@@ -16,10 +16,14 @@ const app = express();
 // Handlebars 
 app.engine("handlebars",exphbs({defaultLayout:"main"}));
 app.set("view engine","handlebars")
+// body parser
+app.use(bodyParser.urlencoded({extended:false}))
+// index router
 app.get("/",(req,res)=>{
-    res.send("index")
+    res.render("index",{layout:"landing"})
 })
-
+// set static folder 
+app.use(express.static(path.join(__dirname,"/public")))
 // Gig routes
 app.use("/gigs", require("./routes/gigs"))
 
